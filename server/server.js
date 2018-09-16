@@ -19,7 +19,9 @@ app.get('/', (req, res) => {
       <body>
         <header>
           <h1>My book shelf</h1>
-          <h3>dupa kupa</h3>
+          <h2>Ta da!</h2>
+          <h3>"U mnie dziala"</h3>
+          <h4>dupa kupa</h4>
         </header>
       </body>
     </html>
