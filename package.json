@@ -1,0 +1,11 @@
+{
+  "name": "the-book-shelf-node-express-mongo",
+  "version": "1.0.0",
+  "description": "study projest with ES6, react, redux, nodejs, express, mongo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kostiantyn Burlai",
+  "license": "ISC"
+}
