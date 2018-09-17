@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+const config = require('./../config/config').get(process.env.NODE_ENV);
 const SALT_I = 10;
 
 const userSchema = mongoose.Schema({
@@ -15,10 +17,22 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: 6
   },
+  name: {
+    type: String,
+    maxlength: 100
+  },
+  lastname: {
+    type: String,
+    maxlength: 100
+  },
+  role: {
+    type: Number,
+    default: 0
+  },
   token: {
     type: String
   }
-})
+});
 
 userSchema.pre('save', function (next) {
   var user = this;

@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const { User } = require('./models/user');
+const { Book } = require('./models/book');
+
 const { auth } = require('./middleware/auth');
 
 app.get('/', (req, res) => {
