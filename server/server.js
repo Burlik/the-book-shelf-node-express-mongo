@@ -2,15 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const config = require('./config/config').get(process.env.NODE_ENV);
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/auth');
+mongoose.connect(config.DATABASE);
+
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 const { User } = require('./models/user');
 const { auth } = require('./middleware/auth');
-app.use(bodyParser.json());
-app.use(cookieParser());
 
 app.get('/', (req, res) => {
   const mainPage = `
@@ -23,6 +25,8 @@ app.get('/', (req, res) => {
           <h3>"U mnie dziala"</h3>
           <h4>dupa kupa</h4>
         </header>
+        <main>Main content</main>
+        <footer>Footer</footer>
       </body>
     </html>
   `;
@@ -62,13 +66,12 @@ app.post('/api/user/login', (req, res) => {
 
 app.get('/user/profile', auth, (req, res) => {
   res.status(200).send(req.token);
-})
-
+});
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Started on port ${port}`);
+  console.log(`Server is runninig on ${port}`);
 })
 
 
