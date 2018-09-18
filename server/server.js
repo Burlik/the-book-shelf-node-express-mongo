@@ -8,13 +8,56 @@ const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE);
 
+const { User } = require('./models/user');
+const { Book } = require('./models/book');
+const { auth } = require('./middleware/auth');
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const { User } = require('./models/user');
-const { Book } = require('./models/book');
+// GET //
+// get a single book //
+app.get('/api/getBook', (req, res) => {
+  const id = req.query.id;
 
-const { auth } = require('./middleware/auth');
+  Book.findById(id, (err, doc) => {
+    if (err) return res.status(400).send(err);
+
+    res.send(doc);
+  });
+});
+
+// get all books with filtering and optional limits //
+app.get('/api/books', (req, res) => {
+  let skip = parseInt(req.query.skip); // we need this, to control, how many books from database we could skip while making the request for "all" books
+  let limit = parseInt(req.query.limit);
+  let order = req.query.order;
+
+  // order = asc || desc
+  Book.find().skip(skip).sort({ _id: order }).limit(limit).exec((err, doc) => {
+    if (err) return res.status(400).send(err);
+
+    res.send(doc);
+  });
+});
+
+// POST - add new book //
+app.post('/api/book', (req, res) => {
+  const book = new Book(req.body);
+
+  book.save((err, doc) => {
+    if (err) return res.status(400).send(err);
+
+    res.status(200).json({
+      post: true,
+      bookId: doc._id
+    });
+  })
+});
+
+// DELETE //
+
+// UPDATE //
 
 app.get('/', (req, res) => {
   const mainPage = `
