@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
           <h4>dupa kupa</h4>
         </header>
         <main>Main content</main>
-        <footer>Footer</footer>
+        <footer><h6>Хуйцы с гречкой</h6></footer>
       </body>
     </html>
   `;
