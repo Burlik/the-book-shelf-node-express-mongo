@@ -55,6 +55,18 @@ app.post('/api/book', (req, res) => {
   })
 });
 
+app.post('/api/register', (req, res) => {
+  const user = new User(req.body);
+
+  user.save((err, doc) => {
+    if (err) return res.json({ success: false });
+    res.status(200).json({
+      success: true,
+      user: doc
+    })
+  });
+});
+
 // UPDATE //
 // update one book by id?
 app.post('/api/book_update', (req, res) => {
@@ -85,13 +97,11 @@ app.get('/', (req, res) => {
       <head></head>
       <body>
         <header>
-          <h1>My book shelf</h1>
+          <h1>Test project</h1>
           <h2>Ta da!</h2>
           <h3>"U mnie dziala"</h3>
-          <h4>dupa kupa</h4>
         </header>
         <main>Main content</main>
-        <footer><h6>Хуйцы с гречкой</h6></footer>
       </body>
     </html>
   `;

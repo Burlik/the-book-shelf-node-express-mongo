@@ -1,0 +1,7 @@
+https://reqres.in/api/users
+
+###
+GET https://reqres.in/api/users/3
+
+###
+POST https://reqres.in/api/users/1234
